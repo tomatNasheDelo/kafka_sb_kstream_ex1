@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Сообщение отправлено</title></head>
+<body>
+<h1>Сообщение отправлено</h1>
+<p>Оно будет обработано Kafka Streams и появится в мониторе React.</p>
+<p th:text="${message}"></p>
+<a th:href="@{/}">Отправить ещё</a> |
+<a href="http://localhost:5173">Открыть монитор</a>
+</body>
+</html>

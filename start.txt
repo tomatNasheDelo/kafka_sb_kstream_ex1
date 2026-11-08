@@ -1,0 +1,63 @@
+Трёхсервисный демо-проект Spring Boot + Kafka Streams.
+
+Поток сообщений:
+1. Producer: форма Thymeleaf (`http://localhost:8080`) отправляет JSON в Kafka topic `demo-messages`.
+2. Stream processor: Kafka Streams обрабатывает событие, добавляя верхний регистр и время обработки, и пишет в `processed-messages`. У сервиса нет frontend.
+3. Consumer: читает обработанный топик, выводит события в консоль и предоставляет REST API `http://localhost:8081/api/messages`.
+4. React + Vite 7 + TypeScript: монитор `http://localhost:5173` показывает сообщения из consumer API.
+
+Технологии: Java 17, Spring Boot 3.4.3, Gradle Kotlin DSL, Thymeleaf, Spring Kafka, Kafka Streams, Apache Kafka 3.9/KRaft, Docker Compose, React 19, Vite 7, TypeScript, JUnit 5.
+
+## Запуск полного стека
+
+```bash
+docker compose up --build
+```
+
+Consumer выводит полученные события в лог. Просмотр:
+
+```bash
+docker compose logs -f consumer
+```
+
+Остановка и удаление контейнеров:
+
+```bash
+docker compose down
+```
+
+Удалить также Kafka volume:
+
+```bash
+docker compose down -v
+```
+
+## Локальный запуск
+
+Нужны JDK 17+ и Gradle 8.x. Сначала Kafka:
+
+```bash
+docker compose up -d kafka
+```
+
+Затем в отдельных терминалах:
+
+```bash
+gradle :consumer:bootRun
+gradle :stream-processor:bootRun
+gradle :producer:bootRun
+```
+
+Frontend локально, требуется Node.js 20.19+ или 22.12+:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+## Тесты
+
+```bash
+gradle test
+```

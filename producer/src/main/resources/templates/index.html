@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kafka producer</title>
+</head>
+<body>
+<h1>Отправить сообщение в Kafka</h1>
+<p>Сообщение пройдёт через Kafka Streams, затем появится на React-странице.</p>
+<form th:action="@{/messages}" th:object="${messageRequest}" method="post">
+    <label for="message">Сообщение:</label><br>
+    <textarea id="message" th:field="*{message}" rows="5" cols="50" maxlength="1000" required></textarea>
+    <div th:if="${#fields.hasErrors('message')}" th:errors="*{message}" style="color: red"></div>
+    <br><button type="submit">Отправить</button>
+</form>
+<p><a href="http://localhost:5173" target="_blank" rel="noreferrer">Открыть монитор сообщений</a></p>
+</body>
+</html>

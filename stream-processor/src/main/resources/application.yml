@@ -1,0 +1,14 @@
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:29092}
+    streams:
+      application-id: ${KAFKA_STREAMS_APPLICATION_ID:message-stream-processor}
+      properties:
+        default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        default.value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+        commit.interval.ms: 1000
+
+app:
+  kafka:
+    input-topic: ${APP_KAFKA_INPUT_TOPIC:demo-messages}
+    output-topic: ${APP_KAFKA_OUTPUT_TOPIC:processed-messages}
